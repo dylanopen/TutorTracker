@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="Avalonia.Base">
+        <HintPath>..\..\..\.nuget\packages\avalonia\12.0.4\ref\net10.0\Avalonia.Base.dll</HintPath>
+      </Reference>
+      <Reference Include="Avalonia.Controls">
+        <HintPath>..\..\..\.nuget\packages\avalonia\12.0.4\ref\net10.0\Avalonia.Controls.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia.Desktop" Version="12.0.4" />
+      <PackageReference Include="Semi.Avalonia" Version="12.0.3" />
+    </ItemGroup>
+
+</Project>
