@@ -11,7 +11,7 @@ public class MainView : UserControl
     {
         _contentHost = new ContentControl
         {
-            Content = new CalendarPage()
+            Content = new ClientsPage()
         };
 
         var commandBar = new StackPanel
@@ -20,13 +20,19 @@ public class MainView : UserControl
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
 
-        var homeButton = new Button
+        var clientsButton = new Button
+        {
+            Content = "Clients",
+            HorizontalAlignment = HorizontalAlignment.Stretch
+        };
+
+        var calendarButton = new Button
         {
             Content = "Calendar",
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
 
-        var aboutButton = new Button
+        var notesButton = new Button
         {
             Content = "Notes",
             HorizontalAlignment = HorizontalAlignment.Stretch
@@ -38,12 +44,14 @@ public class MainView : UserControl
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
 
-        homeButton.Click += (_, _) => _contentHost.Content = new CalendarPage();
+        clientsButton.Click += (_, _) => _contentHost.Content = new ClientsPage();
+        calendarButton.Click += (_, _) => _contentHost.Content = new CalendarPage();
         settingsButton.Click += (_, _) => _contentHost.Content = new SettingsPage();
-        aboutButton.Click += (_, _) => _contentHost.Content = new NotesPage();
+        notesButton.Click += (_, _) => _contentHost.Content = new NotesPage();
 
-        commandBar.Children.Add(homeButton);
-        commandBar.Children.Add(aboutButton);
+        commandBar.Children.Add(clientsButton);
+        commandBar.Children.Add(calendarButton);
+        commandBar.Children.Add(notesButton);
         commandBar.Children.Add(settingsButton);
 
         DockPanel.SetDock(commandBar, Dock.Bottom);
@@ -53,7 +61,7 @@ public class MainView : UserControl
             Children =
             {
                 commandBar,
-                _contentHost
+                _contentHost,
             }
         };
     }

@@ -1,4 +1,7 @@
-﻿using TutorTrackerDatabase;
+﻿using Avalonia.Markup.Xaml.Styling;
+using Avalonia.Styling;
+using Semi.Avalonia.DataGrid;
+using TutorTrackerDatabase;
 using TutorTrackerModel;
 
 namespace TutorTracker;
@@ -21,7 +24,12 @@ class Program
     static void AppMain(Application app, string[] args)
     {
         app.Styles.Add(new SemiTheme());
+        app.Styles.Add(new DataGridSemiTheme());
+        app.RequestedThemeVariant = ThemeVariant.Dark;
 
+        var grid = new DataGrid();
+        Console.WriteLine(grid.GetType().Assembly.FullName);
+        
         var window = new Window
         {
             Title = "Tutor Tracker: organise tutoring sessions",
