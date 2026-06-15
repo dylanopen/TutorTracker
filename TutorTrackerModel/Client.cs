@@ -4,12 +4,12 @@ namespace TutorTrackerModel;
 
 public class Client : IModel<Client>
 {
-    // client (id integer primary key autoincrement, first_name text, last_name text, phone text, address text)
     public int Id { get; set; }
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string Phone { get; set; }
     public required string Address { get; set; }
+    public required int Year { get; set; }
 
     public static Client ParseNextRow(SqliteDataReader reader)
     {
@@ -20,7 +20,20 @@ public class Client : IModel<Client>
             FirstName = reader.GetString(1),
             LastName = reader.GetString(2),
             Phone = reader.GetString(3),
-            Address = reader.GetString(4)
+            Address = reader.GetString(4),
+            Year = reader.GetInt32(5)
         };
+    }
+
+    public (string, object)[] ToMap()
+    {
+        return
+        [
+            ("first_name", FirstName),
+            ("last_name", LastName),
+            ("phone", Phone),
+            ("address", Address),
+            ("year", Year)
+        ];
     }
 }
