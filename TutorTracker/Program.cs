@@ -1,6 +1,7 @@
 ﻿using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Styling;
 using Semi.Avalonia.DataGrid;
+using Semi.Avalonia.Dock;
 using TutorTrackerDatabase;
 using TutorTrackerModel;
 
@@ -25,10 +26,10 @@ class Program
     {
         app.Styles.Add(new SemiTheme());
         app.Styles.Add(new DataGridSemiTheme());
+        app.Styles.Add(new DockSemiTheme());
         app.RequestedThemeVariant = ThemeVariant.Dark;
 
         var grid = new DataGrid();
-        Console.WriteLine(grid.GetType().Assembly.FullName);
         
         var window = new Window
         {

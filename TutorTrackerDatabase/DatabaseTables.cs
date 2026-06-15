@@ -8,7 +8,7 @@ public class DatabaseTables
     {
         String[] tables = new[]
         {
-            "client (id integer primary key autoincrement, first_name text, last_name text, phone text, address text)",
+            "client (id integer primary key autoincrement, first_name text, last_name text, phone text, address text, year integer)",
         };
         using var conn = new DbConnection();
         foreach (String table in tables)
