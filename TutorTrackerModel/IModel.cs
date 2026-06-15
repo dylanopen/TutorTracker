@@ -60,14 +60,14 @@ public interface IModel<T> where T : IModel<T>
         return Load(reader);
     }
     
-    public static List<T> LoadAll(String sql, params object[] args)
+    public static List<T> LoadAll(String sql, (string, object)[] args)
     {
         using var conn = new DbConnection();
         using var reader = conn.Query(sql, args);
         return LoadAll(reader);
     }
     
-    public static T Load(String sql, params object[] args)
+    public static T Load(String sql, params (string, object)[] args)
     {
         using var conn = new DbConnection();
         using var reader = conn.Query(sql, args);

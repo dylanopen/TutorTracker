@@ -30,7 +30,7 @@ public class DbConnection : IDisposable
         return command.ExecuteReader();
     }
     
-    public void Update(String sql, object[] args)
+    public void Update(String sql, (string, object)[] args)
     {
         using SqliteCommand command = new SqliteCommand(sql, Conn);
         foreach (object arg in args)
@@ -40,14 +40,14 @@ public class DbConnection : IDisposable
         command.ExecuteNonQuery();
     }
 
-    public SqliteDataReader Query(String sql, object[] args)
+    public SqliteDataReader Query(String sql, (string, object)[] args)
     {
-        using SqliteCommand command = new SqliteCommand(sql, Conn);
+        SqliteCommand command = new SqliteCommand(sql, Conn);
         for (int i = 0; i < args.Length; i++)
         {
-            object arg = args[i];
-            Console.WriteLine(arg);
-            command.Parameters.AddWithValue($"placeholder{i}", arg);
+            string key = args[i].Item1;
+            object value = args[i].Item2;
+            command.Parameters.AddWithValue(key, value);
         }
         return command.ExecuteReader();
     }

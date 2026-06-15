@@ -10,7 +10,8 @@ public class CalendarPage : UserControl
     {
         StackPanel panel = new StackPanel
         {
-            Children = {
+            Children =
+            {
                 new TextBlock
                 {
                     Text = "Calendar",
@@ -19,9 +20,9 @@ public class CalendarPage : UserControl
                 },
             }
         };
-        foreach (Client client in IModel<Client>.LoadAll("select * from client where first_name = ?", "Gary"))
+        List<Client> clients = IModel<Client>.Everything();
+        foreach (Client client in clients)
         {
-            
             panel.Children.Add(new TextBlock
             {
                 Text = $"{client.FirstName} {client.LastName} - {client.Phone} - {client.Address}",
