@@ -117,4 +117,11 @@ public interface IModel<T> where T : IModel<T>
             Update();
         }
     }
+    
+    public void Delete()
+    {
+        using var conn = new DbConnection();
+        var sql = $"DELETE FROM {GetTableName()} WHERE id = @id";
+        conn.Update(sql, new (string, object)[] { ("id", Id) });
+    }
 }

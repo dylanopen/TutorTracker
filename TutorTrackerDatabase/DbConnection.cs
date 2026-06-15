@@ -33,9 +33,9 @@ public class DbConnection : IDisposable
     public void Update(String sql, (string, object)[] args)
     {
         using SqliteCommand command = new SqliteCommand(sql, Conn);
-        foreach (object arg in args)
+        foreach ((string key, object value) in args)
         {
-            command.Parameters.Add(new SqliteParameter { Value = arg });
+            command.Parameters.AddWithValue(key, value);
         }
         command.ExecuteNonQuery();
     }

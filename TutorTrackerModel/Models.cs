@@ -8,4 +8,9 @@ public class Models
     {
         model.Save();
     }
+
+    public static void Delete<T>(IModel<T> model) where T : IModel<T>
+    {
+        model.Delete();
+    }
 }
