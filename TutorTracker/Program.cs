@@ -1,4 +1,7 @@
-﻿namespace TutorTracker;
+﻿using TutorTrackerDatabase;
+using TutorTrackerModel;
+
+namespace TutorTracker;
 
 using Avalonia;
 using Avalonia.Controls;
@@ -8,6 +11,8 @@ class Program
 {
     public static void Main(string[] args)
     {
+        DatabaseTables.Create();
+       
         AppBuilder.Configure<Application>()
             .UsePlatformDetect()
             .Start(AppMain, args);

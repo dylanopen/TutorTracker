@@ -21,4 +21,9 @@
       <PackageReference Include="Semi.Avalonia" Version="12.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TutorTrackerDatabase\TutorTrackerDatabase.csproj" />
+        <ProjectReference Include="..\TutorTrackerModel\TutorTrackerModel.csproj" />
+    </ItemGroup>
+
 </Project>

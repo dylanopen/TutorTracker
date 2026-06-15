@@ -1,5 +1,3 @@
-using TutorTrackerCalendar;
-
 namespace TutorTracker;
 
 using Avalonia.Layout;

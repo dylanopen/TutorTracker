@@ -1,18 +1,36 @@
-﻿namespace TutorTrackerCalendar;
-
-using Avalonia.Layout;
+﻿using Avalonia.Layout;
 using Avalonia.Controls;
+using TutorTrackerModel;
+
+namespace TutorTracker;
 
 public class CalendarPage : UserControl
 {
-        public CalendarPage()
+    public CalendarPage()
+    {
+        StackPanel panel = new StackPanel
         {
-            Content = new TextBlock
+            Children = {
+                new TextBlock
+                {
+                    Text = "Calendar",
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Top,
+                },
+            }
+        };
+        foreach (Client client in IModel<Client>.LoadAll("select * from client where first_name = ?", "Gary"))
+        {
+            
+            panel.Children.Add(new TextBlock
             {
-                Text = "Calendar",
+                Text = $"{client.FirstName} {client.LastName} - {client.Phone} - {client.Address}",
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
+                VerticalAlignment = VerticalAlignment.Top,
+            });
         }
+
+        Content = panel;
+    }
 
 }
