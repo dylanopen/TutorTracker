@@ -11,7 +11,6 @@ public class Session : IModel<Session>
 
     public static Session ParseNextRow(SqliteDataReader reader)
     {
-        
         return new Session
         {
             Id = reader.GetInt32(0),
@@ -25,8 +24,7 @@ public class Session : IModel<Session>
     {
         return
         [
-            ("id", Id),
-            ("client", Client.Id),
+            ("client", Client),
             ("start_time", new DateTimeOffset(StartTime).ToUnixTimeSeconds()),
             ("duration", (int)Duration.TotalSeconds)
         ];

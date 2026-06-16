@@ -12,6 +12,7 @@ public interface IModel<T> where T : IModel<T>
     public static T Load(SqliteDataReader reader)
     {
         if (!reader.HasRows) throw new Exception($"No rows found for query, table '{GetTableName()}'.");
+        reader.Read();
         return T.ParseNextRow(reader);
     }
     
@@ -27,17 +28,7 @@ public interface IModel<T> where T : IModel<T>
     
     public static T FromId(int id)
     {
-        using var conn = new DbConnection();
-        // We are only using our own class name and integers, so no escaping needed
-        using var reader = conn.Query($"SELECT * FROM {GetTableName()} WHERE id = {id}");
-        return Load(reader);
-    }
-    
-    public static List<T> FromIdAll(String sql)
-    {
-        using var conn = new DbConnection();
-        using var reader = conn.Query(sql);
-        return LoadAll(reader);
+        return Load($"SELECT * FROM {GetTableName()} WHERE id = @id", ("id", id));
     }
     
     public static List<T> Everything()

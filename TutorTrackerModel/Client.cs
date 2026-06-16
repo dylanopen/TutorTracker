@@ -13,8 +13,7 @@ public class Client : IModel<Client>
 
     public static Client ParseNextRow(SqliteDataReader reader)
     {
-        
-        return new Client
+        Client client = new Client
         {
             Id = reader.GetInt32(0),
             FirstName = reader.GetString(1),
@@ -23,6 +22,8 @@ public class Client : IModel<Client>
             Address = reader.GetString(4),
             Year = reader.GetInt32(5)
         };
+
+        return client;
     }
 
     public (string, object)[] ToMap()
