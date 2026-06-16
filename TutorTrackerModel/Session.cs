@@ -24,7 +24,7 @@ public class Session : IModel<Session>
     {
         return
         [
-            ("client", Client),
+            ("client", Client.Id),
             ("start_time", new DateTimeOffset(StartTime).ToUnixTimeSeconds()),
             ("duration", (int)Duration.TotalSeconds)
         ];
