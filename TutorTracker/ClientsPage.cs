@@ -1,43 +1,26 @@
 ﻿using Avalonia.Layout;
 using Avalonia.Controls;
-using Avalonia.Media;
+using Avalonia.Input;
+using Avalonia.Interactivity;
 using TutorTrackerModel;
 
 namespace TutorTracker;
 
 public class ClientsPage : UserControl
 {
+    List<Client> clients;
+    DataGrid studentGrid;
+
     public ClientsPage()
     {
-        List<Client> clients = IModel<Client>.Everything();
-        
-        DataGrid studentGrid = new DataGrid
+        clients = IModel<Client>.Everything();
+
+        studentGrid = new DataGrid
         {
             ItemsSource = clients,
             AutoGenerateColumns = true,
             HorizontalAlignment = HorizontalAlignment.Stretch,
             VerticalAlignment = VerticalAlignment.Stretch,
-        };
-        studentGrid.RowEditEnded += (sender, e) =>
-        {
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
-                Client client = (Client)(e.Row.DataContext ?? throw new Exception("Selected client's row data is null"));
-                Models.Save(client);
-            }
-        };
-        studentGrid.KeyDown += (sender, e) =>
-        {
-            if (e.Key == Avalonia.Input.Key.Delete)
-            {
-                if (studentGrid.SelectedItem is Client client)
-                {
-                    Models.Delete(client);
-                    clients.Remove(client);
-                    studentGrid.ItemsSource = null;
-                    studentGrid.ItemsSource = clients;
-                }
-            }
         };
 
         Button addStudentButton = new()
@@ -46,22 +29,19 @@ public class ClientsPage : UserControl
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Bottom,
         };
-        addStudentButton.Click += (_, _) =>
+        addStudentButton.Click += AddStudentButtonClick;
+
+        // Begin event handlers
+        studentGrid.RowEditEnded += (sender, e) =>
         {
-            Client newClient = new Client
-            {
-                FirstName = "First Name",
-                LastName = "Last Name",
-                Phone = "Phone Number",
-                Address = "Address",
-                Year = 0
-            };
-            Models.Save(newClient);
-            clients.Add(newClient);
-            studentGrid.ItemsSource = null;
-            studentGrid.ItemsSource = clients;
+            if (e.EditAction == DataGridEditAction.Commit) CommitCurrentRowChanges(sender, e);
         };
-        
+        studentGrid.KeyDown += (sender, e) =>
+        {
+            if (e.Key == Avalonia.Input.Key.Delete) DeleteCurrentRow(sender, e);
+        };
+        // End event handlers
+
         Content = new StackPanel
         {
             Children =
@@ -78,4 +58,36 @@ public class ClientsPage : UserControl
         };
     }
 
+    private void AddStudentButtonClick(object? sender, RoutedEventArgs e) 
+    {
+        Client newClient = new Client
+        {
+            FirstName = "First Name",
+            LastName = "Last Name",
+            Phone = "Phone Number",
+            Address = "Address",
+            Year = 0
+        };
+        Models.Save(newClient);
+        clients.Add(newClient);
+        studentGrid.ItemsSource = null;
+        studentGrid.ItemsSource = clients;
+    }
+
+    private void DeleteCurrentRow(object? sender, KeyEventArgs e)
+    {
+        if (studentGrid.SelectedItem is Client client)
+        {
+            Models.Delete(client);
+            clients.Remove(client);
+            studentGrid.ItemsSource = null;
+            studentGrid.ItemsSource = clients;
+        }
+    }
+
+    private void CommitCurrentRowChanges(object? sender, DataGridRowEditEndedEventArgs e)
+    {
+        Client client = (Client)(e.Row.DataContext ?? throw new Exception("Selected client's row data is null"));
+        Models.Save(client);
+    }
 }

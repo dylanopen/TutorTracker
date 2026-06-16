@@ -1,5 +1,3 @@
-using Microsoft.Data.Sqlite;
-
 namespace TutorTrackerDatabase;
 
 public class DatabaseTables
@@ -9,7 +7,7 @@ public class DatabaseTables
         String[] tables = new[]
         {
             "client (id integer primary key autoincrement, first_name text, last_name text, phone text, address text, year integer)",
-            "session (id integer primary key autoincrement, client integer, start_time integer, duration integer)",
+            "session (id integer primary key autoincrement, client integer, start_time long, duration integer)",
         };
         using var conn = new DbConnection();
         foreach (String table in tables)
