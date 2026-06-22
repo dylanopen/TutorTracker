@@ -5,11 +5,11 @@ using TutorTrackerControl;
 
 namespace TutorTracker;
 
-public class CalendarPage : UserControl
+public class CalendarPage : MainPage
 {
     public CalendarPage()
     {
-        var sessionView = new StackPanel
+        StackPanel sessionView = new StackPanel
         {
             Orientation = Orientation.Horizontal,
             HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -24,7 +24,8 @@ public class CalendarPage : UserControl
                 ( "start", UnixTime.ToUnixTime(DateTime.Today.AddDays(i))),
                 ( "end", UnixTime.ToUnixTime(DateTime.Today.AddDays(i + 1)))
             ]);
-            var dayPanel = new CalendarDayPanel(date, sessionsForDay);
+            CalendarDayPanel dayPanel = new CalendarDayPanel(date, sessionsForDay);
+            dayPanel.SessionClicked += (sender, e) => OpenPage?.Invoke(sender, new EditSessionPage(e));
             sessionView.Children.Add(dayPanel);
         }
 

@@ -3,7 +3,7 @@ using Avalonia.Layout;
 
 namespace TutorTracker;
 
-public class SettingsPage : UserControl
+public class SettingsPage : MainPage
 {
     public SettingsPage()
     {

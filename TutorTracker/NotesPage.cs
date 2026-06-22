@@ -3,7 +3,7 @@ using Avalonia.Layout;
 
 namespace TutorTracker;
 
-public class NotesPage : UserControl
+public class NotesPage : MainPage
 {
     public NotesPage()
     {

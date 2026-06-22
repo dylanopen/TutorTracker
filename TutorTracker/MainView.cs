@@ -5,65 +5,61 @@ using Avalonia.Controls;
 
 public class MainView : UserControl
 {
-    private readonly ContentControl _contentHost;
+    private ContentControl currentPage = new ContentControl
+    {
+        HorizontalAlignment = HorizontalAlignment.Stretch,
+        VerticalAlignment = VerticalAlignment.Stretch
+    };
 
     public MainView()
     {
-        _contentHost = new ContentControl
-        {
-            Content = new ClientsPage()
-        };
-
-        var commandBar = new StackPanel
+        StackPanel commandBar = new StackPanel
         {
             Orientation = Orientation.Horizontal,
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
 
-        var clientsButton = new Button
+        var pages = new List<(string, Func<UserControl>)>
         {
-            Content = "Clients",
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            ("Clients", () => CreatePage(new ClientsPage())),
+            ("Calendar", () => CreatePage(new CalendarPage())),
+            ("Notes", () => CreatePage(new NotesPage())),
+            ("Settings", () => CreatePage(new SettingsPage()))
         };
 
-        var calendarButton = new Button
+        foreach ((string name, Func<UserControl> pageFactory) in pages)
         {
-            Content = "Calendar",
-            HorizontalAlignment = HorizontalAlignment.Stretch
-        };
-
-        var notesButton = new Button
-        {
-            Content = "Notes",
-            HorizontalAlignment = HorizontalAlignment.Stretch
-        };
-
-        var settingsButton = new Button
-        {
-            Content = "Settings",
-            HorizontalAlignment = HorizontalAlignment.Stretch
-        };
-
-        clientsButton.Click += (_, _) => _contentHost.Content = new ClientsPage();
-        calendarButton.Click += (_, _) => _contentHost.Content = new CalendarPage();
-        settingsButton.Click += (_, _) => _contentHost.Content = new SettingsPage();
-        notesButton.Click += (_, _) => _contentHost.Content = new NotesPage();
-
-        commandBar.Children.Add(clientsButton);
-        commandBar.Children.Add(calendarButton);
-        commandBar.Children.Add(notesButton);
-        commandBar.Children.Add(settingsButton);
+            var button = new Button
+            {
+                Content = name,
+                HorizontalAlignment = HorizontalAlignment.Stretch
+            };
+            button.Click += (_, _) => currentPage.Content = pageFactory();
+            commandBar.Children.Add(button);
+        }
 
         DockPanel.SetDock(commandBar, Dock.Bottom);
+        SetCurrentPage(CreatePage(new CalendarPage()));
 
         Content = new DockPanel
         {
             Children =
             {
                 commandBar,
-                _contentHost,
+                currentPage,
             }
         };
+    }
+
+    MainPage CreatePage(MainPage page)
+    {
+        page.OpenPage += (sender, newPage) => SetCurrentPage(newPage);
+        return page;
+    }
+
+    void SetCurrentPage(MainPage newPage)
+    {
+        currentPage.Content = newPage;
     }
 }
 

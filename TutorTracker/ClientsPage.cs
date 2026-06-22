@@ -6,7 +6,7 @@ using TutorTrackerModel;
 
 namespace TutorTracker;
 
-public class ClientsPage : UserControl
+public class ClientsPage : MainPage
 {
     List<Client> clients;
     DataGrid studentGrid;

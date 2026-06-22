@@ -5,6 +5,8 @@ using Avalonia.Controls;
 
 public class CalendarDayPanel : StackPanel
 {
+    public EventHandler<Session>? SessionClicked;
+
     public CalendarDayPanel(DateTime date, List<Session> sessions)
     {
         this.Orientation = Avalonia.Layout.Orientation.Vertical;
@@ -18,7 +20,9 @@ public class CalendarDayPanel : StackPanel
         });
         foreach (Session session in sessions)
         {
-            this.Children.Add(new CalendarSessionPanel(session));
+            CalendarSessionPanel sessionPanel = new CalendarSessionPanel(session);
+            sessionPanel.SessionClicked += (sender, e) => SessionClicked?.Invoke(sender, e);
+            this.Children.Add(sessionPanel);
         }
     }
 }

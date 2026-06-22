@@ -8,46 +8,43 @@ public class AddSessionPanel : StackPanel
 {
     public AddSessionPanel()
     {
-        var clientComboBox = new ComboBox
+        ComboBox clientComboBox = new ComboBox
         {
             ItemsSource = IModel<Client>.Everything(),
             DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
             SelectedIndex = 0,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
         };
-        var datePicker = new DatePicker
+        DatePicker datePicker = new DatePicker
         {
             SelectedDate = DateTime.Today.AddDays(7),
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
         };
-        var startTimePicker = new TimePicker
+        TimePicker startTimePicker = new TimePicker
         {
             SelectedTime = new TimeSpan(18, 0, 0),
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
         };
-        var durationTextBox = new TextBox
+        TextBox durationTextBox = new TextBox
         {
             Text = "1:00",
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
         };
-        var addSessionButton = new Button
+        Button addSessionButton = new Button
         {
             Content = "Add Session",
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top,
         };
+
+        foreach (Control control in new Control[] { clientComboBox, datePicker, startTimePicker, durationTextBox, addSessionButton })
+        {
+            control.Margin = new Avalonia.Thickness(3);
+            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Left;
+            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top;
+        }
 
         addSessionButton.Click += (sender, e) =>
         {
-            var client = (Client)clientComboBox.SelectedItem;
-            var startTime = (datePicker.SelectedDate ?? DateTime.Today).Add(startTimePicker.SelectedTime ?? new TimeSpan(18, 0, 0));
-            var durationParts = durationTextBox.Text.Split(':');
-            var duration = new TimeSpan(int.Parse(durationParts[0]), int.Parse(durationParts[1]), 0);
-            var newSession = new Session
+            Client client = (Client)clientComboBox.SelectedItem;
+            DateTimeOffset startTime = (datePicker.SelectedDate ?? DateTime.Today).Add(startTimePicker.SelectedTime ?? new TimeSpan(18, 0, 0));
+            string[] durationParts = durationTextBox.Text.Split(':');
+            TimeSpan duration = new TimeSpan(int.Parse(durationParts[0]), int.Parse(durationParts[1]), 0);
+            Session newSession = new Session
             {
                 Client = client,
                 StartTime = startTime.DateTime,
