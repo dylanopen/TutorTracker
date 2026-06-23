@@ -4,28 +4,27 @@ using Avalonia.Controls;
 
 using TutorTrackerModel;
 
-public class AddSessionPanel : StackPanel
+public class EditSessionPanel : StackPanel
 {
-    public AddSessionPanel()
+    public Session Session
+    {
+        get { return ParseInputs(); }
+        set { PlaceholdInputs(value); }
+    }
+
+    public EditSessionPanel(Session session)
     {
         ComboBox clientComboBox = new ComboBox
         {
             ItemsSource = IModel<Client>.Everything(),
             DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
-            SelectedIndex = 0,
         };
         DatePicker datePicker = new DatePicker
         {
             SelectedDate = DateTime.Today.AddDays(7),
         };
-        TimePicker startTimePicker = new TimePicker
-        {
-            SelectedTime = new TimeSpan(18, 0, 0),
-        };
-        TextBox durationTextBox = new TextBox
-        {
-            Text = "1:00",
-        };
+        TimePicker startTimePicker = new TimePicker();
+        TextBox durationTextBox = new TextBox();
         Button addSessionButton = new Button
         {
             Content = "Add Session",
@@ -58,11 +57,44 @@ public class AddSessionPanel : StackPanel
         VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch;
         Spacing = 5;
         Children.AddRange([
-            clientComboBox,
-            datePicker,
-            startTimePicker,
-            durationTextBox,
-            addSessionButton
+                clientComboBox,
+                datePicker,
+                startTimePicker,
+                durationTextBox,
+                addSessionButton
         ]);
+    }
+
+    public Session ParseInputs()
+    {
+        Client client = (Client)((ComboBox)Children[0]).SelectedItem;
+        DateTimeOffset startTime = ((DatePicker)Children[1]).SelectedDate ?? DateTime.Today;
+        TimeSpan startTimeOfDay = ((TimePicker)Children[2]).SelectedTime ?? new TimeSpan(18, 0, 0);
+        string[] durationParts = ((TextBox)Children[3]).Text.Split(':');
+        TimeSpan duration = new TimeSpan(int.Parse(durationParts[0]), int.Parse(durationParts[1]), 0);
+        return new Session
+        {
+            Client = client,
+            StartTime = startTime.Date.Add(startTimeOfDay),
+            Duration = duration,
+        };
+    }
+
+    public void PlaceholdInputs(Session session)
+    {
+        ((ComboBox)Children[0]).SelectedItem = session.Client;
+        ((DatePicker)Children[1]).SelectedDate = session.StartTime.Date;
+        ((TimePicker)Children[2]).SelectedTime = session.StartTime.TimeOfDay;
+        ((TextBox)Children[3]).Text = $"{(int)session.Duration.TotalHours}:{session.Duration.Minutes:D2}";
+    }
+
+    public void PlaceholdInputs()
+    {
+        PlaceholdInputs(new Session
+        {
+            Client = IModel<Client>.Everything().First(),
+            StartTime = DateTime.Today.AddDays(7).AddHours(18),
+            Duration = new TimeSpan(1, 0, 0),
+        });
     }
 }

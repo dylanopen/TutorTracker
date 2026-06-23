@@ -46,7 +46,19 @@ public class CalendarPage : MainPage
                     FontSize = 20,
                     HorizontalAlignment = HorizontalAlignment.Left,
                 },
-                new AddSessionPanel(),
+                new EditSessionPanel(new Session
+                {
+                    Client = IModel<Client>.Everything().FirstOrDefault() ?? new Client
+                    {
+                        FirstName = "Add a client before adding a session!",
+                        LastName = "",
+                        Phone = "",
+                        Address = "",
+                        Year = 0,
+                    },
+                    StartTime = DateTime.Today.AddDays(7).AddHours(18),
+                    Duration = new TimeSpan(1, 0, 0),
+                }),
             }
         };
     }

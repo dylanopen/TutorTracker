@@ -9,6 +9,5 @@ public class EditSessionPage : MainPage
 { 
     public EditSessionPage(Session session)
     {
-
     }
 }
