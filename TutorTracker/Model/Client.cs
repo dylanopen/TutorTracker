@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using TutorTracker.Database;
 
 namespace TutorTracker.Model;
 

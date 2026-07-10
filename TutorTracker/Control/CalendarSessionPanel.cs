@@ -1,6 +1,8 @@
+using TutorTracker.Model;
+using TutorTracker.Tool;
+
 namespace TutorTracker.Control;
 
-using TutorTrackerModel;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Interactivity;

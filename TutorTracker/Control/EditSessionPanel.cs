@@ -1,8 +1,9 @@
+using TutorTracker.Database;
+using TutorTracker.Model;
+
 namespace TutorTracker.Control;
 
 using Avalonia.Controls;
-
-using TutorTrackerModel;
 
 public class EditSessionPanel : StackPanel
 {

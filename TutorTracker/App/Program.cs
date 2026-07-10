@@ -1,9 +1,10 @@
-﻿namespace TutorTracker.App;
+﻿using TutorTracker.Database;
+
+namespace TutorTracker.App;
 
 using Avalonia.Styling;
 using Semi.Avalonia.DataGrid;
 using Semi.Avalonia.Dock;
-using TutorTrackerDatabase;
 
 using Avalonia;
 using Avalonia.Controls;
