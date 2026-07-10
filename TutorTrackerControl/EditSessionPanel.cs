@@ -80,11 +80,6 @@ public class EditSessionPanel : StackPanel
 
     public void PlaceholdInputs()
     {
-        PlaceholdInputs(new Session
-        {
-            Client = IModel<Client>.Everything().First(),
-            StartTime = DateTime.Today.AddDays(7).AddHours(18),
-            Duration = new TimeSpan(1, 0, 0),
-        });
+        PlaceholdInputs(Session.Placeholder);
     }
 }
