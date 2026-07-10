@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 
-namespace TutorTrackerModel;
+namespace TutorTracker.Model;
 
 public class Client : IModel<Client>
 {

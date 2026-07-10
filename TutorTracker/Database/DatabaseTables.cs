@@ -1,4 +1,4 @@
-namespace TutorTrackerDatabase;
+namespace TutorTracker.Database;
 
 public class DatabaseTables
 {

@@ -1,9 +1,9 @@
-﻿using Avalonia.Layout;
+﻿namespace TutorTracker.Page;
+
+using Avalonia.Layout;
 using Avalonia.Controls;
 using TutorTrackerModel;
-using TutorTrackerControl;
-
-namespace TutorTracker.Calendar;
+using TutorTracker.Control;
 
 public class CalendarPage : MainPage
 {

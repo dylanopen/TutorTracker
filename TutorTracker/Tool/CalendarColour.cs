@@ -1,4 +1,4 @@
-namespace TutorTracker.Calendar;
+namespace TutorTracker.Tool;
 
 using Avalonia.Media;
 

@@ -1,4 +1,4 @@
-﻿namespace TutorTrackerControl;
+﻿namespace TutorTracker.Control;
 
 using TutorTrackerModel;
 using Avalonia.Controls;

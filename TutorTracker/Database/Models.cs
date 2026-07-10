@@ -1,6 +1,4 @@
-using TutorTrackerDatabase;
-
-namespace TutorTrackerModel;
+namespace TutorTracker.Database;
 
 public class Models
 {

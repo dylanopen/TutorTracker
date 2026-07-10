@@ -1,6 +1,6 @@
-using Avalonia.Controls;
+namespace TutorTracker.Page;
 
-namespace TutorTracker;
+using Avalonia.Controls;
 
 public class MainPage : UserControl
 {
