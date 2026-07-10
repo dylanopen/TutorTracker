@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using TutorTrackerModel;
 using TutorTrackerControl;
 
-namespace TutorTracker;
+namespace TutorTracker.Calendar;
 
 public class CalendarPage : MainPage
 {
