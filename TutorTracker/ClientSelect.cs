@@ -31,6 +31,7 @@ public class ClientSelect : StackPanel
         {
             ItemsSource = clients,
             DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
+            SelectedIndex = 0,
         };
         _combo.SelectionChanged += (sender, e) => ClientChanged?.Invoke(sender, ParseInput());
         Children.Add(_combo);
