@@ -18,7 +18,7 @@ public class EditSessionPanel : StackPanel
         DatePicker datePicker = new DatePicker();
         TimePicker startTimePicker = new TimePicker();
         TextBox durationTextBox = new TextBox();
-        
+
         Button addSessionButton = new Button
         {
             Content = "Add Session",

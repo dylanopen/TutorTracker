@@ -8,6 +8,8 @@ public class ClientSelect : StackPanel
 {
     private ComboBox _combo;
     
+    public EventHandler<Client>? ClientChanged;
+    
     public Client Client
     {
         get { return ParseInput(); }
@@ -21,6 +23,7 @@ public class ClientSelect : StackPanel
             ItemsSource = IModel<Client>.Everything(),
             DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
         };
+        _combo.SelectionChanged += (sender, e) => ClientChanged?.Invoke(sender, ParseInput());
         Children.Add(_combo);
     }
 
