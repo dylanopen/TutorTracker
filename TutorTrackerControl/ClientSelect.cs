@@ -6,7 +6,7 @@ using TutorTrackerModel;
 
 public class ClientSelect : StackPanel
 {
-    private ComboBox _combo;
+    private readonly ComboBox _combo;
     
     public EventHandler<Client>? ClientChanged;
     
@@ -16,18 +16,29 @@ public class ClientSelect : StackPanel
         set { PlaceholdInput(value); }
     }
 
-    public ClientSelect()
+    public ClientSelect(bool allowWildcard)
     {
+        List<Client> clients = new List<Client>();
+        if (allowWildcard)
+        {
+            Client placeholder = Client.Placeholder;
+            placeholder.FirstName = "All Clients";
+            clients.Add(placeholder);
+        }
+        clients.AddRange(IModel<Client>.Everything());
+        
         _combo = new ComboBox()
         {
-            ItemsSource = IModel<Client>.Everything(),
+            ItemsSource = clients,
             DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
         };
         _combo.SelectionChanged += (sender, e) => ClientChanged?.Invoke(sender, ParseInput());
         Children.Add(_combo);
     }
 
-    Client ParseInput()
+    public ClientSelect() : this(false) {}
+
+    private Client ParseInput()
     {
         return (Client)_combo.SelectedValue;
     }
