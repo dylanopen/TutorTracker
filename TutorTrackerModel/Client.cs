@@ -37,4 +37,13 @@ public class Client : IModel<Client>
             ("year", Year)
         ];
     }
+
+    public static Client Placeholder = new Client
+    {
+        FirstName = "First Name",
+        LastName = "Last Name",
+        Phone = "Phone",
+        Address = "Address",
+        Year = 0,
+    };
 }
