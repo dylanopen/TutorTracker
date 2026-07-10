@@ -29,4 +29,11 @@ public class Session : IModel<Session>
             ("duration", (int)Duration.TotalSeconds)
         ];
     }
+
+    public static readonly Session Placeholder = new Session
+    {
+        Client = IModel<Client>.Everything().First(),
+        StartTime = DateTime.Today.AddDays(7).AddHours(18),
+        Duration = new TimeSpan(1, 0, 0),
+    };
 }
