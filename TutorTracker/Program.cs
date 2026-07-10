@@ -34,8 +34,8 @@ class Program
         var window = new Window
         {
             Title = "Tutor Tracker: organise tutoring sessions",
-            Width = 2100,
-            Height = 1080,
+            Width = 1280,
+            Height = 720,
             Content = new MainView()
         };
 
