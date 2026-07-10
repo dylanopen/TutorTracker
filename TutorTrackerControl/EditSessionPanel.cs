@@ -12,19 +12,13 @@ public class EditSessionPanel : StackPanel
         set { PlaceholdInputs(value); }
     }
 
-    public EditSessionPanel(Session session)
+    public EditSessionPanel(Session? session)
     {
-        ComboBox clientComboBox = new ComboBox
-        {
-            ItemsSource = IModel<Client>.Everything(),
-            DisplayMemberBinding = new Avalonia.Data.Binding("FirstName"),
-        };
-        DatePicker datePicker = new DatePicker
-        {
-            SelectedDate = DateTime.Today.AddDays(7),
-        };
+        ClientSelect clientComboBox = new ClientSelect();
+        DatePicker datePicker = new DatePicker();
         TimePicker startTimePicker = new TimePicker();
         TextBox durationTextBox = new TextBox();
+        
         Button addSessionButton = new Button
         {
             Content = "Add Session",
@@ -39,17 +33,7 @@ public class EditSessionPanel : StackPanel
 
         addSessionButton.Click += (sender, e) =>
         {
-            Client client = (Client)clientComboBox.SelectedItem;
-            DateTimeOffset startTime = (datePicker.SelectedDate ?? DateTime.Today).Add(startTimePicker.SelectedTime ?? new TimeSpan(18, 0, 0));
-            string[] durationParts = durationTextBox.Text.Split(':');
-            TimeSpan duration = new TimeSpan(int.Parse(durationParts[0]), int.Parse(durationParts[1]), 0);
-            Session newSession = new Session
-            {
-                Client = client,
-                StartTime = startTime.DateTime,
-                Duration = duration,
-            };
-            Models.Save(newSession);
+            Models.Save(ParseInputs());
         };
 
         Orientation = Avalonia.Layout.Orientation.Horizontal;
@@ -57,20 +41,26 @@ public class EditSessionPanel : StackPanel
         VerticalAlignment = Avalonia.Layout.VerticalAlignment.Stretch;
         Spacing = 5;
         Children.AddRange([
-                clientComboBox,
-                datePicker,
-                startTimePicker,
-                durationTextBox,
-                addSessionButton
+            clientComboBox,
+            datePicker,
+            startTimePicker,
+            durationTextBox,
+            addSessionButton
         ]);
+        
+        if (session == null)
+            PlaceholdInputs();
+        else
+            PlaceholdInputs(session);
     }
 
     public Session ParseInputs()
     {
-        Client client = (Client)((ComboBox)Children[0]).SelectedItem;
+        Client client = ((ClientSelect)Children[0]).Client;
         DateTimeOffset startTime = ((DatePicker)Children[1]).SelectedDate ?? DateTime.Today;
         TimeSpan startTimeOfDay = ((TimePicker)Children[2]).SelectedTime ?? new TimeSpan(18, 0, 0);
         string[] durationParts = ((TextBox)Children[3]).Text.Split(':');
+        if (durationParts.Length != 2) throw new ArgumentException("Invalid duration");
         TimeSpan duration = new TimeSpan(int.Parse(durationParts[0]), int.Parse(durationParts[1]), 0);
         return new Session
         {
@@ -82,7 +72,7 @@ public class EditSessionPanel : StackPanel
 
     public void PlaceholdInputs(Session session)
     {
-        ((ComboBox)Children[0]).SelectedItem = session.Client;
+        ((ClientSelect)Children[0]).Client = session.Client;
         ((DatePicker)Children[1]).SelectedDate = session.StartTime.Date;
         ((TimePicker)Children[2]).SelectedTime = session.StartTime.TimeOfDay;
         ((TextBox)Children[3]).Text = $"{(int)session.Duration.TotalHours}:{session.Duration.Minutes:D2}";

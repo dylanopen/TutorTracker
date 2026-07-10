@@ -17,7 +17,7 @@ public class CalendarSessionPanel : Button
         Random random = new Random(session.Client.GetHashCode());
         this.Background = new SolidColorBrush(CalendarColour.GetColourForClient(session.Client.Id));
         this.MinWidth = 100;
-        string StudentName = session.Client.FirstName;
+        string studentName = session.Client.FirstName;
         this.Click += (sender, e) => SessionClicked?.Invoke(sender, Session);
         
         this.Content = new StackPanel
@@ -31,7 +31,7 @@ public class CalendarSessionPanel : Button
                 },
                 new TextBlock
                 {
-                    Text = StudentName,
+                    Text = studentName,
                     HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
                     VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
                 },
