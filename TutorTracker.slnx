@@ -1,6 +1,3 @@
 <Solution>
   <Project Path="TutorTracker/TutorTracker.csproj" />
-  <Project Path="TutorTrackerDatabase/TutorTrackerDatabase.csproj" />
-  <Project Path="TutorTrackerModel/TutorTrackerModel.csproj" />
-  <Project Path="TutorTrackerControl/TutorTrackerControl.csproj" />
 </Solution>

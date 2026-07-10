@@ -1,11 +1,10 @@
-﻿using Avalonia.Markup.Xaml.Styling;
+﻿using TutorTracker.Database;
+
+namespace TutorTracker.App;
+
 using Avalonia.Styling;
 using Semi.Avalonia.DataGrid;
 using Semi.Avalonia.Dock;
-using TutorTrackerDatabase;
-using TutorTrackerModel;
-
-namespace TutorTracker;
 
 using Avalonia;
 using Avalonia.Controls;

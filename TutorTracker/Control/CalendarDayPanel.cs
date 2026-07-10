@@ -1,6 +1,7 @@
-﻿namespace TutorTrackerControl;
+﻿using TutorTracker.Model;
 
-using TutorTrackerModel;
+namespace TutorTracker.Control;
+
 using Avalonia.Controls;
 
 public class CalendarDayPanel : StackPanel

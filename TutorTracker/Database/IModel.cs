@@ -1,7 +1,7 @@
 using Microsoft.Data.Sqlite;
-using TutorTrackerDatabase;
+using TutorTracker.Tool;
 
-namespace TutorTrackerModel;
+namespace TutorTracker.Database;
 
 public interface IModel<T> where T : IModel<T>
 {

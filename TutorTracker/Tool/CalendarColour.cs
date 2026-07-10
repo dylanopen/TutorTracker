@@ -1,3 +1,5 @@
+namespace TutorTracker.Tool;
+
 using Avalonia.Media;
 
 public class CalendarColour

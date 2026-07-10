@@ -1,10 +1,12 @@
-﻿using Avalonia.Layout;
+﻿using TutorTracker.Database;
+using TutorTracker.Model;
+
+namespace TutorTracker.Page;
+
+using Avalonia.Layout;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using TutorTrackerModel;
-
-namespace TutorTracker;
 
 public class ClientsPage : MainPage
 {

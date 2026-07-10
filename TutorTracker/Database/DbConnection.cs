@@ -1,6 +1,6 @@
-﻿using Microsoft.Data.Sqlite;
+﻿namespace TutorTracker.Database;
 
-namespace TutorTrackerDatabase;
+using Microsoft.Data.Sqlite;
 
 public class DbConnection : IDisposable
 {

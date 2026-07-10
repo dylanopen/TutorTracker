@@ -1,4 +1,4 @@
-namespace TutorTrackerModel;
+namespace TutorTracker.Tool;
 
 public static class UnixTime
 {

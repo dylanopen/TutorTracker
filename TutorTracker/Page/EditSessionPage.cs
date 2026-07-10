@@ -1,7 +1,8 @@
-using Avalonia.Controls;
-using TutorTrackerModel;
+using TutorTracker.Model;
 
-namespace TutorTracker;
+namespace TutorTracker.Page;
+
+using Avalonia.Controls;
 
 public class EditSessionPage : MainPage
 { 

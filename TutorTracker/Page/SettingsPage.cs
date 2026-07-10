@@ -1,7 +1,7 @@
+namespace TutorTracker.Page;
+
 using Avalonia.Controls;
 using Avalonia.Layout;
-
-namespace TutorTracker;
 
 public class SettingsPage : MainPage
 {

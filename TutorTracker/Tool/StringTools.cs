@@ -1,6 +1,6 @@
-using System.Text;
+namespace TutorTracker.Tool;
 
-namespace TutorTrackerModel;
+using System.Text;
 
 public static class StringTools
 {
