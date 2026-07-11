@@ -1,3 +1,5 @@
+using Avalonia.Layout;
+using Avalonia.Media;
 using TutorTracker.Database;
 using TutorTracker.Model;
 
@@ -16,19 +18,33 @@ public class EditClientNote : StackPanel
     private ClientSelect _clientSelect;
     private TextBox _textTextBox;
 
-    public EditClientNote(ClientNote? clientNote)
+    public EditClientNote(ClientNote? clientNoteOption)
     {
-        string text = clientNote?.Text ?? ClientNote.Placeholder.Text;
+        ClientNote clientNote = clientNoteOption ?? ClientNote.Placeholder;
         
-        _clientSelect = new ClientSelect();
-        if (clientNote != null)
+        string text = clientNote.Text;
+        
+        _clientSelect = new ClientSelect(true);
+        if (clientNoteOption != null)
             _clientSelect.Client = clientNote.Client;
         _clientSelect.ClientChanged += (sender, newClient) => ChangeClient(newClient);
 
         _textTextBox = new TextBox()
         {
             Text = text,
+            AcceptsReturn = true,
+            MinWidth = 400,
+            Height = 200,
+            HorizontalAlignment = HorizontalAlignment.Left,
+            VerticalContentAlignment = VerticalAlignment.Top,
+            HorizontalContentAlignment = HorizontalAlignment.Left,
+            TextWrapping = TextWrapping.Wrap,
         };
+
+        if (clientNoteOption == null)
+        {
+            _textTextBox.Text = "";
+        }
         
         Children.Add(_clientSelect);
         Children.Add(_textTextBox);
