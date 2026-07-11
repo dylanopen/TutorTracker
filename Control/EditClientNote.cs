@@ -15,6 +15,8 @@ public class EditClientNote : StackPanel
         set { PlaceholdInputs(value); }
     }
 
+    public EventHandler<ClientNote>? NoteSaved;
+
     private ClientSelect _clientSelect;
     private TextBox _textTextBox;
 
@@ -85,5 +87,6 @@ public class EditClientNote : StackPanel
     {
         ClientNote clientNote = ParseInputs();
         Models.Save(clientNote);
+        NoteSaved?.Invoke(this, clientNote);
     }
 }
