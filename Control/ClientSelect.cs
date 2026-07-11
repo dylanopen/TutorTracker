@@ -47,6 +47,7 @@ public class ClientSelect : StackPanel
 
     void PlaceholdInput(Client client)
     {
-        _combo.SelectedItem = client;
+        int index = _combo.Items.IndexOf(client);
+        _combo.SelectedIndex = index >= 0 ? index : 0;
     }
 }
