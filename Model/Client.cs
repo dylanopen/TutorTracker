@@ -39,10 +39,19 @@ public class Client : IModel<Client>
         ];
     }
 
-    public static Client Placeholder = new Client
+    public static readonly Client Placeholder = new Client
     {
         FirstName = "First Name",
         LastName = "Last Name",
+        Phone = "Phone",
+        Address = "Address",
+        Year = 0,
+    };
+
+    public static readonly Client SelectPlaceholder = new Client
+    {
+        FirstName = "Select a client...",
+        LastName = "Select a client...",
         Phone = "Phone",
         Address = "Address",
         Year = 0,
