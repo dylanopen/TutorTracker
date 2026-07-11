@@ -26,4 +26,10 @@ public class ClientNote : IModel<ClientNote>
             ("text", Text),
         ];
     }
+    
+    public static ClientNote Placeholder = new ClientNote
+    {
+        Client = Client.SelectPlaceholder,
+        Text = "This client doesn't have a note yet: start typing one!",
+    };
 }
