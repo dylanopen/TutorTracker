@@ -19,6 +19,7 @@ public class EditClientNote : StackPanel
 
     private ClientSelect _clientSelect;
     private TextBox _textTextBox;
+    private Button _saveButton;
 
     public EditClientNote(ClientNote? clientNoteOption)
     {
@@ -43,6 +44,13 @@ public class EditClientNote : StackPanel
             TextWrapping = TextWrapping.Wrap,
         };
 
+        _saveButton = new Button()
+        {
+            Content = "Save",
+            HorizontalAlignment = HorizontalAlignment.Left,
+        };
+        _saveButton.Click += (sender, args) => Save();
+
         if (clientNoteOption == null)
         {
             _textTextBox.Text = "";
@@ -50,6 +58,7 @@ public class EditClientNote : StackPanel
         
         Children.Add(_clientSelect);
         Children.Add(_textTextBox);
+        Children.Add(_saveButton);
     }
 
     private void ChangeClient(Client newClient)
