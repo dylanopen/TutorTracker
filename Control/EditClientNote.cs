@@ -75,15 +75,20 @@ public class EditClientNote : StackPanel
 
     public ClientNote ParseInputs()
     {
-        return new ClientNote()
+        ClientNote note = new ClientNote()
         {
             Client = _clientSelect.Client,
             Text = _textTextBox.Text,
         };
+        ClientNote? existingNote = IModel<ClientNote>.Load("select * from client_note where client = @client",
+            ("client", note.Client.Id));
+        if (existingNote != null) note.Id =  existingNote.Id;
+        return note;
     }
 
     public void PlaceholdInputs(ClientNote clientNote)
     {
+        _clientSelect.Client = clientNote.Client;
         _textTextBox.Text = clientNote.Text;
     }
 
