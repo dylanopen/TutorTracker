@@ -23,7 +23,7 @@ public class CalendarPage : MainPage
         for (int i = 0; i < 7; i++)
         {
             DateTime date = DateTime.Today.AddDays(i);
-            List<Session> sessionsForDay = IModel<Session>.LoadAll("select * from Session where start_time >= @start and start_time < @end", [
+            List<Session> sessionsForDay = IModel<Session>.LoadAll("select * from session where start_time >= @start and start_time < @end", [
                 ( "start", UnixTime.ToUnixTime(DateTime.Today.AddDays(i))),
                 ( "end", UnixTime.ToUnixTime(DateTime.Today.AddDays(i + 1)))
             ]);
