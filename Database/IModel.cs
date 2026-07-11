@@ -60,11 +60,11 @@ public interface IModel<T> where T : IModel<T>
         return LoadAll(reader);
     }
     
-    public static T Load(String sql, params (string, object)[] args)
+    public static T? Load(String sql, params (string, object)[] args)
     {
         using var conn = new DbConnection();
         using var reader = conn.Query(sql, args);
-        if (!reader.HasRows) throw new Exception($"No rows found for query '{sql}', table '{GetTableName()}'.");
+        if (!reader.HasRows) return default;
         return Load(reader);
     }
 

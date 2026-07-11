@@ -47,7 +47,14 @@ public class ClientSelect : StackPanel
 
     void PlaceholdInput(Client client)
     {
-        int index = _combo.Items.IndexOf(client);
-        _combo.SelectedIndex = index >= 0 ? index : 0;
+        foreach (var item in _combo.Items)
+        {
+            if (item is Client c && c.Id == client.Id)
+            {
+                int index = _combo.Items.Cast<Client>().ToList().IndexOf(c);
+                _combo.SelectedIndex = index;
+                return;
+            }
+        }
     }
 }

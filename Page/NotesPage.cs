@@ -47,15 +47,21 @@ public class NotesPage : MainPage
         }
         else
         {
-            try
+            ClientNote? note = IModel<ClientNote>.Load("select * from client_note where client = @client",
+                [("client", clientId)]);
+            if (note != null)
             {
-                _clientNoteDisplay =
-                    new ClientNoteDisplay(IModel<ClientNote>.Load("select * from client_note where client = @client",
-                        [("client", clientId)]));
+                _clientNoteDisplay = new ClientNoteDisplay(note);
+                _clientNoteDisplay.EditClientNote += OpenClientNoteEditor;
             }
-            catch (Exception e)
+            else
             {
-                _clientNoteDisplay = null;
+                OpenClientNoteEditor(null, new ClientNote()
+                {
+                    Client = _clientSelect.Client,
+                    Text = "",
+                });
+                return;
             }
         }
         
@@ -64,5 +70,13 @@ public class NotesPage : MainPage
         {
             _clientNotePanel.Children.Add(_clientNoteDisplay);
         }
+    }
+    
+    private void OpenClientNoteEditor(object sender, ClientNote note)
+    {
+        EditClientNote editClientNote = new EditClientNote(note);
+        _clientNotePanel.Children.Clear();
+        _clientNotePanel.Children.Add(editClientNote);
+        editClientNote.NoteSaved += (sender, clientNote) => UpdateClientNoteDisplay();
     }
 }
